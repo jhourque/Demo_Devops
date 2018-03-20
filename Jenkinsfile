@@ -5,12 +5,13 @@ pipeline {
         stage('WhereAmi') {
             steps {
                 script {
-                    if (scm.branches[0].name == 'master') {
+                    if ('no' == 'master') {
                         echo 'I only execute on the master branch'
                     } else {
                         echo 'I execute elsewhere'
                     }
-                    echo scm.branches[0].name
+                    sh 'env'
+                    sh 'git branch'
                 }
             }
         }
