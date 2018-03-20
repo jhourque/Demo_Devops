@@ -40,7 +40,7 @@ pipeline {
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
                     dir ("terraform/dev") {
-                        sh 'echo terraform apply'
+                        sh 'terraform apply'
                     }
                 }
             }
