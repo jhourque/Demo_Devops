@@ -2,20 +2,19 @@ pipeline {
     agent any
 
     stages {
-        stage('AmIMaster') {
-            when { branch 'master' }
+        stage('WhereAmi') {
             steps {
-                echo 'I m on master'
-            }
-        }
-        stage('AmIDev') {
-            when { branch 'dev' }
-            steps {
-                echo 'I m on dev'
+                script {
+                    if (env.BRANCH_NAME == 'master') {
+                        echo 'I only execute on the master branch'
+                    } else {
+                        echo 'I execute elsewhere'
+                    }
+                    echo env.BRANCH_NAME
+                }
             }
         }
         stage('fmt') {
-            when { branch 'master' }
             steps {
                 withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
@@ -31,7 +30,6 @@ pipeline {
             }
         }
         stage('plan') {
-            when { branch 'master' }
             steps {
                 withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
@@ -46,7 +44,6 @@ pipeline {
             }
         }
         stage('apply') {
-            when { branch 'master' }
             steps {
                 withCredentials([[
                         $class: 'AmazonWebServicesCredentialsBinding',
