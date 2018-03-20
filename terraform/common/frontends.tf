@@ -1,6 +1,6 @@
 ### Variables
-variable db_name {
-  default = "demo"
+variable branch {
+  default = "master"
 }
 
 variable front_instance_number {
