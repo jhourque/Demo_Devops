@@ -42,7 +42,7 @@ pipeline {
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
-                    dir ("terraform/prod") {
+                    dir (terraformpath) {
                         sh 'terraform plan'
                     }
                 }
@@ -56,7 +56,7 @@ pipeline {
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
-                    dir ("terraform/prod") {
+                    dir (terraformpath) {
                         sh 'terraform apply -auto-approve'
                     }
                 }
