@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    def terraformpath = ''
 
     stages {
         stage('WhereAmi') {
@@ -7,6 +8,10 @@ pipeline {
                 script {
                     if (env.GIT_BRANCH == 'origin/master') {
                         echo 'I only execute on the master branch'
+                        terraformpath='terraform/prod'
+                    } else if (env.GIT_BRANCH == 'origin/dev') {
+                        echo 'I only execute on the dev branch'
+                        terraformpath='terraform/dev'
                     } else {
                         echo 'I execute elsewhere'
                         echo env.GIT_BRANCH
@@ -22,7 +27,7 @@ pipeline {
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
-                    dir ("terraform/prod") {
+                    dir (terraformpath) {
                         sh 'terraform init'
                         sh 'terraform fmt'
                     }
