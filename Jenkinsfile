@@ -1,8 +1,8 @@
+def terraformpath = ''
 pipeline {
     agent any
 
     stages {
-        def terraformpath = ''
         stage('WhereAmi') {
             steps {
                 script {
