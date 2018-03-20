@@ -43,7 +43,7 @@ data "template_file" "userdata" {
 
 ### Resources
 resource "aws_iam_role" "ECR_acess" {
-  name = "ECR_access"
+  name = "ECR_access-${var.branch}"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -62,7 +62,7 @@ EOF
 }
 
 resource "aws_iam_policy" "ECR_policy" {
-  name        = "ECR_access"
+  name        = "ECR_access-${var.branch}"
   description = "policy for ECR access from EC2"
 
   policy = <<EOF
@@ -91,7 +91,7 @@ resource "aws_iam_role_policy_attachment" "ECR_attach" {
 }
 
 resource "aws_iam_instance_profile" "ECR_instance_profile" {
-    name = "ECR_instance_profile"
+    name = "ECR_instance_profile-${var.branch}"
     role = "${aws_iam_role.ECR_acess.name}"
 }
 
