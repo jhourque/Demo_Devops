@@ -63,6 +63,7 @@ pipeline {
                     }
                 }
             }
+		}
         stage('Func Test') {
             steps {
                 withCredentials([[
@@ -76,8 +77,6 @@ pipeline {
                     }
                 }
             }
-        }
-    }
         }
     }
 }
