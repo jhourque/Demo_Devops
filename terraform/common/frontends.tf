@@ -3,6 +3,10 @@ variable branch {
   default = "master"
 }
 
+variable app_version {
+  default = "latest"
+}
+
 variable front_instance_number {
   default = "2"
 }
@@ -36,7 +40,7 @@ data "template_file" "userdata" {
   template = "${file("files/userdata.sh")}"
 
   vars {
-    REPO = "${data.terraform_remote_state.static.ecr_app_url}"
+    REPO = "${data.terraform_remote_state.static.ecr_app_url}:${var.app_version}"
     REGION = "${var.region}"
   }
 }
