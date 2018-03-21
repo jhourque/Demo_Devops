@@ -17,30 +17,30 @@ pipeline {
 				}
 			}
         }
-		if (env.GIT_BRANCH == 'origin/dev') {
-			stage('build') {
-				steps {
-					withCredentials([[
-							$class: 'AmazonWebServicesCredentialsBinding',
-							credentialsId: 'aws_creds',
-							accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-							secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-					]]) {
-						dir (terraformpath) {
-							sh 'terraform init'
-							sh 'terraform fmt'
-						}
+		stage('build') {
+			when { env.GIT_BRANCH == 'origin/dev' }
+			steps {
+				withCredentials([[
+						$class: 'AmazonWebServicesCredentialsBinding',
+						credentialsId: 'aws_creds',
+						accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+						secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+				]]) {
+					dir (terraformpath) {
+						sh 'terraform init'
+						sh 'terraform fmt'
 					}
 				}
 			}
-			stage('Unit Test') {
-				steps {
-					echo 'Test 1: Ok'
-					echo 'Test 2: Ok'
-					echo 'Test 3: Ok'
-					echo 'Test 4: Ok'
-					echo 'Test 5: Ok'
-				}
+		}
+		stage('Unit Test') {
+			when { env.GIT_BRANCH == 'origin/dev' }
+			steps {
+				echo 'Test 1: Ok'
+				echo 'Test 2: Ok'
+				echo 'Test 3: Ok'
+				echo 'Test 4: Ok'
+				echo 'Test 5: Ok'
 			}
 		}
         stage('Deploy') {
