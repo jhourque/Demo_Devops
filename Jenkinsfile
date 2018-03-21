@@ -30,9 +30,9 @@ pipeline {
 						accessKeyVariable: 'AWS_ACCESS_KEY_ID',
 						secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
 				]]) {
-					dir (terraformpath) {
-						sh 'terraform init'
-						sh 'terraform fmt'
+					dir ("docker") {
+						sh 'eval $(aws ecr get-login --region=eu-west-1)'
+						sh 'make'
 					}
 				}
 			}
@@ -58,6 +58,8 @@ pipeline {
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
                     dir (terraformpath) {
+						sh 'terraform init'
+						sh 'export TF_VAR_app_version=$VERSION'
                         sh 'terraform apply -auto-approve'
                     }
                 }

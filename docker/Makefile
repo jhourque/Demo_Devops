@@ -1,4 +1,4 @@
-VERSION := 1.0
+VERSION := $(VERSION)
 BUILD_DATE := $(shell date +%F)
 DOCKER_TAG ?= simple-php-app:$(VERSION)
 REPO=$(shell cd ../terraform/static && terraform output ecr_app_url)

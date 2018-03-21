@@ -4,7 +4,6 @@ variable branch {
 }
 
 variable app_version {
-  default = "latest"
 }
 
 variable front_instance_number {
