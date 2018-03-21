@@ -20,7 +20,9 @@ pipeline {
 			}
 		}
 		stage('build') {
-			when { env.GIT_BRANCH == 'origin/dev' }
+			when {
+				expression { env.GIT_BRANCH == 'origin/dev' }
+			}
 			steps {
 				withCredentials([[
 						$class: 'AmazonWebServicesCredentialsBinding',
@@ -36,7 +38,9 @@ pipeline {
 			}
 		}
 		stage('Unit Test') {
-			when { env.GIT_BRANCH == 'origin/dev' }
+			when {
+				expression { env.GIT_BRANCH == 'origin/dev' }
+			}
 			steps {
 				echo 'Test 1: Ok'
 				echo 'Test 2: Ok'
