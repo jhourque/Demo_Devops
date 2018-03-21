@@ -3,20 +3,22 @@ pipeline {
     agent any
 
     stages {
-		steps {
-			script {
-				if (env.GIT_BRANCH == 'origin/master') {
-					echo 'I only execute on the master branch'
-					terraformpath='terraform/prod'
-				} else if (env.GIT_BRANCH == 'origin/dev') {
-					echo 'I only execute on the dev branch'
-					terraformpath='terraform/dev'
-				} else {
-					echo 'I execute elsewhere'
-					echo env.GIT_BRANCH
+		stage('setup') {
+			steps {
+				script {
+					if (env.GIT_BRANCH == 'origin/master') {
+						echo 'I only execute on the master branch'
+							terraformpath='terraform/prod'
+					} else if (env.GIT_BRANCH == 'origin/dev') {
+						echo 'I only execute on the dev branch'
+							terraformpath='terraform/dev'
+					} else {
+						echo 'I execute elsewhere'
+							echo env.GIT_BRANCH
+					}
 				}
 			}
-        }
+		}
 		stage('build') {
 			when { env.GIT_BRANCH == 'origin/dev' }
 			steps {
