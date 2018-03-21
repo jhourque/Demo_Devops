@@ -59,8 +59,7 @@ pipeline {
                 ]]) {
                     dir (terraformpath) {
 						sh 'terraform init'
-						sh 'export TF_VAR_app_version=$VERSION'
-                        sh 'terraform apply -auto-approve'
+                        sh 'TF_VAR_app_version=$VERSION terraform apply -auto-approve'
                     }
                 }
             }
