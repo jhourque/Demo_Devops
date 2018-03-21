@@ -32,7 +32,7 @@ pipeline {
 				]]) {
 					dir ("docker") {
 						sh 'eval $(aws ecr get-login --region=eu-west-1)'
-						sh 'make -e VERSION=$(VERSION)'
+						sh 'make -e VERSION=$VERSION'
 					}
 				}
 			}
