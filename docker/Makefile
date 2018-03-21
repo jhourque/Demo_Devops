@@ -1,7 +1,7 @@
 VERSION ?= latest
 BUILD_DATE := $(shell date +%F)
 DOCKER_TAG ?= simple-php-app:$(VERSION)
-REPO=$(shell cd ../terraform/static && terraform output ecr_app_url)
+REPO=$(shell cd ../terraform/static && terraform init && terraform output ecr_app_url)
 
 all: build tag push
 
@@ -12,7 +12,7 @@ build:
 		-t $(DOCKER_TAG) .
 
 tag:
-	@docker tag $(DOCKER_TAG) $(REPO):$(VERSION)
+	docker tag $(DOCKER_TAG) $(REPO):$(VERSION)
 
 push:
 	@docker push $(REPO):$(VERSION)
