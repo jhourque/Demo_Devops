@@ -32,6 +32,7 @@ pipeline {
 				]]) {
 					dir ("docker") {
 						sh 'eval $(aws ecr get-login --region=eu-west-1)'
+						sh 'cd ../terraform/static && terraform init'
 						sh 'make -e VERSION=$VERSION'
 					}
 				}
