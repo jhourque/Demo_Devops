@@ -63,6 +63,21 @@ pipeline {
                     }
                 }
             }
+        stage('Func Test') {
+            steps {
+                withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'aws_creds',
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+                    dir (terraformpath) {
+						echo 'Deployment ok'
+                    }
+                }
+            }
+        }
+    }
         }
     }
 }
